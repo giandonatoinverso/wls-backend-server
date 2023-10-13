@@ -1,0 +1,24 @@
+{
+    "_INFO": "Dual stack JS+TS compiler",
+    "compilerOptions": {
+        "target": "es2017",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "allowJs": true,
+        "checkJs": false,
+        "module": "commonjs",
+        "outDir": "dist",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "inlineSources": true,
+        "baseUrl": "src",
+        "paths": {},
+      "allowSyntheticDefaultImports": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
