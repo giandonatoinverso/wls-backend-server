@@ -131,6 +131,10 @@ export function getAuthorizationCode(userInfoToken: string): Promise<string> {
   });
 }
 
+/*
+Exchange the authorization code for an access token and a refresh token.
+Adds the access token to a data structure that will be used to make tokens disposable
+ */
 export function exchangeAuthorizationCodeAccessToken(clientId: string, authorizationCode: string): Promise<{ accessToken: string, refreshToken: string, refreshTokenExpiration: string }> {
   return new Promise<{ accessToken: string, refreshToken: string, refreshTokenExpiration: string }>(async (resolve, reject) => {
 
@@ -170,6 +174,9 @@ export function exchangeAuthorizationCodeAccessToken(clientId: string, authoriza
   });
 }
 
+/*
+Exchange the refresh token for an access token and a new refresh token
+ */
 export function exchangeRefreshTokenAccessToken(clientId: string, refreshToken: string): Promise<{ accessToken: string, refreshToken: string, refreshTokenExpiration: string }> {
   return new Promise<{ accessToken: string, refreshToken: string, refreshTokenExpiration: string }>(async (resolve, reject) => {
 

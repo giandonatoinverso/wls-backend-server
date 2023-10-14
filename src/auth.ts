@@ -3,6 +3,9 @@ import { Request, Response } from "express";
 import * as jwtUtils from "./jwtUtils";
 import * as SqlString from "sqlstring";
 
+/*
+Simple authentication that checks clientId and clientSecret in the http call header in a database to verify that they exist and the user is authorized
+ */
 export async function simpleAuthMiddleware(req: Request, res: Response, next: any) {
   const clientId = req.header("clientId");
   const clientSecret = req.header("clientSecret");
@@ -28,6 +31,9 @@ export async function simpleAuthMiddleware(req: Request, res: Response, next: an
   });
 }
 
+/*
+Authentication method that in addition to checking simple authentication checks the berear token provided for the API call
+ */
 export async function jwtAuthMiddleware(req: Request, res: Response, next: any) {
     simpleAuthMiddleware(req, res, async () => {
       try {
@@ -44,6 +50,9 @@ export async function jwtAuthMiddleware(req: Request, res: Response, next: any) 
     });
 }
 
+/*
+Authentication method that in addition to checking simple authentication and checking the berear token provided for the API call, checks that it is an access token type token
+ */
 export async function jwtAccessTokenAuthMiddleware(req: Request, res: Response, next: any) {
   jwtAuthMiddleware(req, res, async () => {
     try {

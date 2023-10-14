@@ -21,4 +21,5 @@ db.getConnection((err, conn) => {
   conn.release();
 });
 
+// Initializes the map containing the single-use jwt access tokens
 jwtUtils.startTokenCleanupInterval();

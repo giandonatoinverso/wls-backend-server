@@ -42,6 +42,10 @@ export function checkTokenType(token: any, type: string) {
     }
 }
 
+/*
+Encrypt the payload for the JWT token with the public key for authenticity and confidentiality.
+Sign the jwt token with the private key for authenticity
+ */
 export function getEncryptedToken(payloadInput: any, expiresIn: string, options?: any): Promise<string> {
     return new Promise<string>((resolve, reject) => {
 
@@ -88,6 +92,9 @@ export function getEncryptedToken(payloadInput: any, expiresIn: string, options?
     });
 }
 
+/*
+Get the token decrypted
+ */
 export async function getDecryptedToken(inputToken: string): Promise<any> {
     return new Promise((resolve, reject) => {
         // tslint:disable-next-line:no-shadowed-variable
@@ -95,19 +102,15 @@ export async function getDecryptedToken(inputToken: string): Promise<any> {
         const privateKeyPath = filepath.join(__dirname, "key", "private-key.pem");
         const publicKeyPath = filepath.join(__dirname, "key", "public-key.pem");
 
-        // Leggi la chiave privata per decifrare il payload
         const fs = require("fs");
         const privateKeyPEM = fs.readFileSync(privateKeyPath, "utf8");
 
         try {
-            // Verifica il token JWT utilizzando la chiave pubblica
             const publicKey = fs.readFileSync(publicKeyPath, "utf8");
             const verifiedToken: any = jwt.verify(inputToken, publicKey, { algorithms: ["RS256"] });
 
-            // Estrai il payload cifrato dal token JWT
             const base64EncryptedPayload = verifiedToken.data;
 
-            // Decifra il payload con la chiave privata
             const encryptionOptions = {
                 key: privateKeyPEM,
                 format: "pem",
@@ -125,6 +128,9 @@ export async function getDecryptedToken(inputToken: string): Promise<any> {
     });
 }
 
+/*
+Get the token decrypted and the scopes contained
+ */
 export async function getDecryptedTokenAndScopes(req: Request, type: number, customRule: ((scopes: string[], tokenScopes: string[]) => boolean) | null = null) {
     const decryptedAccessToken: any = await getDecryptedToken(req.header("Authorization").split(" ")[1]);
     const result = oauthScopes.checkScopesInToken(decryptedAccessToken, type, customRule);
@@ -149,7 +155,7 @@ export function clearUniqueAccessTokens() {
 }
 
 /*
-Svuota la mappa dei jwt usati ogni ora
+Clears the map of used jwts every hour
  */
 export function startTokenCleanupInterval() {
     setInterval(clearUniqueAccessTokens, 3600000);

@@ -41,6 +41,9 @@ export function getScopesForType(type: number): string[] {
     }
 }
 
+/*
+Check by default that all required scopes are in the token or check them with a custom rule passed as input
+ */
 export function checkScopesInToken(token: any, type: number, customRule: ((scopes: string[], tokenScopes: string[]) => boolean) | null = null) {
     const requiredScopes = scopes[type];
     const foundScopes = [];
