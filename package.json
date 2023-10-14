@@ -1,6 +1,6 @@
 {
     "name": "wls-backend-server",
-    "description": "",
+    "description": "OAuth authentication server and wholesale system backend",
     "version": "1.0.5",
     "author": "giandonatoinverso",
     "license": "MIT",

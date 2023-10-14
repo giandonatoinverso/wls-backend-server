@@ -49,12 +49,6 @@ npm start
 docker compose build --no-cache && docker compose -p wslStack up -d
 ```
 
-## Publication
-
-```bash
-task build publish-docker
-```
-
 ## Separate Use of the OAuth Authentication Part and the Backend
 
 This project offers the possibility to separately use the OAuth authentication part and the backend part for the wholesale service. 
