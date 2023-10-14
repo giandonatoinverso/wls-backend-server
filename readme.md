@@ -61,3 +61,16 @@ For both cases provided below the requirements are a private/public 4096 bit RSA
 - Backend of the Wholesailing Service
     - The backend part of the wholesale service can be tested with a sample client that authenticates with the OAuth authentication server and uses the backend APIs:
 https://github.com/giandonatoinverso/wls-productsales-app
+
+## Context
+
+This repository is part of a set of four interconnected projects created as part of my work for the security exam for service-oriented architectures: https://www.unimi.it/it/corsi/insegnamenti-dei-corsi-di-laurea/2024/sicurezza-delle-architetture-orientate-ai-servizi
+
+1. [wls-productsales-app](https://github.com/giandonatoinverso/wls-productsales-app): PHP ERP application with custom OAuth authentication for role-based access privileges.
+
+2. [wls-auth-client](https://github.com/giandonatoinverso/wls-auth-client): A PHP application for OAuth authentication, returning authorization codes and usernames for authenticated users to an editable endpoint
+
+3. [wls-backend-server](https://github.com/giandonatoinverso/wls-backend-server): OAuth authentication server and wholesale system backend in TypeScript
+
+4. [wsl-db](https://github.com/giandonatoinverso/wsl-db): Database
+
