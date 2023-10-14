@@ -57,14 +57,13 @@ task build publish-docker
 
 ## Separate Use of the OAuth Authentication Part and the Backend
 
-This project offers the possibility to separately use the OAuth authentication part and the backend part for the wholesale service. Instructions for both cases are provided below:
+This project offers the possibility to separately use the OAuth authentication part and the backend part for the wholesale service. 
+
+For both cases provided below the requirements are a private/public 4096 bit RSA pair keys and a MySQL database to store and manage data: https://github.com/giandonatoinverso/wsl-db
 
 - OAuth authentication
     - The OAuth authentication part can be tested yourself by creating a custom client or using an application like Postman.
 
 - Backend of the Wholesailing Service
-    - The backend part of the wholesale service requires the use of a MySQL database to store and manage data:
-      https://github.com/giandonatoinverso/wsl-db
-
-Additionally, there is a sample client that authenticates with the OAuth authentication server and uses the backend APIs:
+    - The backend part of the wholesale service can be tested with a sample client that authenticates with the OAuth authentication server and uses the backend APIs:
 https://github.com/giandonatoinverso/wls-productsales-app
