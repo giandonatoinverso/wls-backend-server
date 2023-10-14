@@ -28,11 +28,11 @@ The application uses middleware to provide authentication and authorization base
 
 - Level 1
     - R products
-    - CRUD sales of your account
+    - CRUD sales of own account
 
 - Level 2
     - R products
-    - R sales of your account
+    - R sales of own account
 
 ## Local setup
 
