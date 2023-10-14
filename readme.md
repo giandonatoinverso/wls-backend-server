@@ -1,73 +1,70 @@
-Il progetto è un'applicazione TypeScript che funge sia da server di autenticazione OAuth locale che da backend per un sistema di vendita all'ingrosso, il quale permette di gestire semplici operazioni CRUD su prodotti e vendite in base a diversi privilegi d'accesso.
+The project is a TypeScript application that serves as both a local OAuth authentication server and a backend for a wholesale system, which allows you to manage simple CRUD operations on products and sales based on different access privileges.
 
-## Panoramica
+## Overview
 
-Il software è strutturato in modo da garantire sicurezza e flessibilità nell'autenticazione, consentendo agli utenti di accedere a diverse funzionalità in base ai loro privilegi. Di seguito vengono elencate le funzionalità chiave del sistema:
+The software is structured to ensure security and flexibility in authentication, allowing users to access different features based on their privileges. The key features of the system are listed below:
 
-- **Autenticazione OAuth**: L'applicazione funge da server di autenticazione OAuth, consentendo agli utenti di autenticarsi e ottenere token di accesso per proteggere le risorse sensibili.
+- **OAuth Authentication**: The application acts as an OAuth authentication server, allowing users to authenticate and obtain access tokens to protect sensitive resources.
 
-- **Gestione Utenti**: Gli utenti possono accedere alle proprie informazioni e ai loro privilegi specifici. L'autenticazione a due livelli (Simple Auth e JWT Auth) garantisce la sicurezza delle operazioni.
+- **User Management**: Users can access their specific information and privileges. Two-level authentication (Simple Auth and JWT Auth) ensures the security of operations.
 
-- **Gestione Vendite**: Gli utenti possono eseguire operazioni CRUD sulle vendite, visualizzare vendite specifiche per venditori, clienti o prodotti, e modificare o eliminare vendite esistenti.
+- **Sales Management**: Users can perform CRUD operations on sales, view specific sales for sellers, customers or products, and edit or delete existing sales.
 
-- **Gestione Prodotti**: Gli utenti possono eseguire operazioni CRUD sui prodotti, accedere a informazioni specifiche sui prodotti e apportare modifiche o eliminarli.
+- **Product Management**: Users can perform CRUD operations on products, access specific product information, and make changes or delete them.
 
 ## Middleware
 
-L'applicazione utilizza middleware per garantire l'autenticazione e l'autorizzazione in base ai ruoli degli utenti. Di seguito vengono elencati i middleware chiave:
+The application uses middleware to provide authentication and authorization based on user roles. The key middlewares are listed below:
 
-- `simpleAuthMiddleware`: Richiede l'autenticazione di base (credenziali CLIENT_ID e CLIENT_SECRET delle applicazioni che si connettono al backend) per le operazioni che richiedono un livello minimo di sicurezza.
+- `simpleAuthMiddleware`: Requires basic authentication (CLIENT_ID and CLIENT_SECRET credentials of applications connecting to the backend) for operations requiring a minimum level of security.
 
-- `jwtAccessTokenAuthMiddleware`: Richiede l'utilizzo di access token JWT monouso per l'autenticazione, garantendo un accesso sicuro alle risorse.
+- `jwtAccessTokenAuthMiddleware`: Requires the use of single-use JWT access tokens for authentication, ensuring secure access to resources.
 
-## Privilegi
+## Access privileges
 
-- Livello 0
-    - CRUD prodotti
-    - CRUD vendite
+- Level 0
+    - CRUD products
+    - CRUD sales
 
-- Livello 1
-    - R prodotti
-    - CRUD vendite del proprio account
+- Level 1
+    - R products
+    - CRUD sales of your account
 
-- Livello 2
-    - R prodotti
-    - R vendite del proprio account
+- Level 2
+    - R products
+    - R sales of your account
 
-## Setup locale
-
-Per installare e avviare l'applicazione localmente, seguire le istruzioni seguenti
+## Local setup
 
 ```bash
-git clone <URL_del_repository>
+git clone <repository>
 yarn install
 npm install
 npm start
 ```
 
-## Setup con docker
+## Docker setup
 
 ```bash
-docker compose -f docker-compose_dev.yaml up -d
+docker compose build --no-cache && docker compose -p wslStack up -d
 ```
 
-## Pubblicazione
+## Publication
 
 ```bash
 task build publish-docker
 ```
 
-## Utilizzo Separato della Parte di Autenticazione OAuth e del Backend
+## Separate Use of the OAuth Authentication Part and the Backend
 
-Questo progetto offre la possibilità di utilizzare separatamente la parte di autenticazione OAuth e la parte del backend per il servizio all'ingrosso. Di seguito sono fornite istruzioni per entrambi i casi:
+This project offers the possibility to separately use the OAuth authentication part and the backend part for the wholesale service. Instructions for both cases are provided below:
 
-- Autenticazione OAuth
-    - La parte di autenticazione OAuth può essere testata autonomamente creando un client personalizzato o utilizzando un'applicazione come Postman.
+- OAuth authentication
+    - The OAuth authentication part can be tested yourself by creating a custom client or using an application like Postman.
 
-- Backend del Servizio Wholesailing
+- Backend of the Wholesailing Service
+    - The backend part of the wholesale service requires the use of a MySQL database to store and manage data:
+      https://github.com/giandonatoinverso/wsl-db
 
-La parte del backend del servizio all'ingrosso richiede l'utilizzo di un database MySQL per archiviare e gestire i dati:
-https://github.com/giandonatoinverso/wsl-db
-
-Inoltre, è disponibile un client d'esempio che si autentica con il server di autenticazione OAuth e utilizza le API del backend:
+Additionally, there is a sample client that authenticates with the OAuth authentication server and uses the backend APIs:
 https://github.com/giandonatoinverso/wls-productsales-app
