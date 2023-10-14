@@ -1,7 +1,7 @@
 {
     "name": "wls-backend-server",
     "description": "",
-    "version": "1.0.0",
+    "version": "1.0.5",
     "author": "giandonatoinverso",
     "license": "MIT",
     "main": "dist/index.js",

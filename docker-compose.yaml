@@ -1,0 +1,73 @@
+version: "3.2"
+services:
+  wls-backend-server:
+    image: "giandonatoinverso/wls-backend-server:latest"
+    environment:
+      - LC_ALL=it_IT.UTF-8
+      - NODE_ENV=development
+      - OPENSSL_PASSPHRASE=88f406149cede34424f9f1b4eeb11f6e
+      - DB_HOST=wls-db
+      - DB_PORT=3306
+      - DB_USER=wls
+      - DB_PASS=LpI3Y0ZDuFypv7EXfk18TY8
+      - DB_NAME=wls
+    ports:
+      - 8083:8083
+    depends_on:
+      - wls-db
+    volumes:
+      - wls_node_logs:/opt/wls-backend-server/logs
+    networks:
+      - wls-network
+
+  wls-db:
+    image: "giandonatoinverso/wls-db:latest"
+    volumes:
+      - wls_db_data:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: CmM598924Al45EdGhLGptmyN
+      MYSQL_DATABASE: wls
+      MYSQL_USER: wls
+      MYSQL_PASSWORD: LpI3Y0ZDuFypv7EXfk18TY8
+    networks:
+      - wls-network
+
+  wls-productsales-app:
+    image: "giandonatoinverso/wls-productsales-app:latest"
+    environment:
+      - LC_ALL=it_IT.UTF-8
+      - OAUTH_FRONTEND=http://wls-auth-client:8080
+      - OAUTH_SERVER=wls-backend-server:8083/
+      - WHOLESALES_SERVER=wls-backend-server:8083/
+      - CLIENT_ID=6427f4781fbf108bcc55e4bb86dd35d2
+      - CLIENT_SECRET=bdbc85437d928bf9ed6e2f0c260bb9c4
+    ports:
+      - 8888:8888
+    networks:
+      - wls-network
+    volumes:
+      - wls_productsales_app_data:/var/www/html
+
+  wls-auth-client:
+    image: "giandonatoinverso/wls-auth-client:latest"
+    environment:
+      - LC_ALL=it_IT.UTF-8
+      - OAUTH_SERVER=wls-backend-server:8083/
+    ports:
+      - 8080:8080
+    networks:
+      - wls-network
+    volumes:
+      - wls-auth-client_data:/var/www/html
+
+volumes:
+  wls_db_data:
+  wls_node_logs:
+  wls_productsales_app_data:
+  wls-auth-client_data:
+
+networks:
+  wls-network:
+    driver: bridge
